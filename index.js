@@ -19,7 +19,7 @@ async function handleRequest(request){
         const payload = JSON.parse(body)
         const response = JSON.stringify({
             type: 4,
-            data: await handlePayload(payload)
+            ...await handlePayload(payload)
         })
         console.log(`Command response: ${response}`)
         return new Response(response, {headers: {"Content-Type": "application/json"}, status: 200})
@@ -44,8 +44,10 @@ async function handlePayload(payload){
                 return resp
             }
             else
-                return {
+                return {data:
+                    {
                     content: resp
+                    }
                 }
     }
 }
